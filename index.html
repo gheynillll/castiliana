@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Universe | Special Edition</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --accent: #ff4d6d;
+            --accent-dim: rgba(255, 77, 109, 0.15);
+            --bg: #0a0508;
+            --surface: #1a0f14;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: #ffffff;
+            overflow-x: hidden;
+            width: 100%;
+        }
+
+        /* Falling Hearts Background */
+        .hearts-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .heart {
+            position: absolute;
+            color: var(--accent);
+            opacity: 0.5;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(100vh) rotate(360deg); }
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            padding: 20px 10%;
+            background: radial-gradient(circle at 50% 50%, var(--accent-dim) 0%, transparent 60%);
+            position: relative;
+            z-index: 1;
+            gap: 20px;
+        }
+
+        .hero-content { flex: 1; }
+        .hero-content h2 { 
+            font-family: 'Dancing Script', cursive;
+            color: var(--accent); 
+            font-size: 2rem; 
+            margin-bottom: 10px; 
+        }
+        .hero-content h1 { font-size: clamp(2rem, 5vw, 4rem); line-height: 1.1; margin-bottom: 20px; }
+        .hero-content p { color: #888; margin-bottom: 30px; font-size: 1rem; }
+        
+        .hero-img-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero-img {
+            width: 100%;
+            max-width: 350px;
+            border-radius: 30px;
+            border: 2px solid var(--accent);
+            box-shadow: 0 0 30px var(--accent-dim);
+        }
+
+        /* Message Overlay */
+        #messageOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 5, 8, 0.98);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.4s;
+            padding: 20px;
+        }
+
+        #messageOverlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .glass-card {
+            background: var(--surface);
+            border: 1px solid var(--accent);
+            padding: 30px;
+            border-radius: 20px;
+            max-width: 500px;
+            text-align: center;
+            width: 100%;
+        }
+
+        .glass-card p {
+            font-size: 1.1rem;
+            color: #eee;
+            font-style: italic;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .signature {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2rem;
+            color: var(--accent);
+        }
+
+        /* Button Utama */
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 1rem;
+            text-decoration: none;
+            box-shadow: 0 10px 20px var(--accent-dim);
+        }
+
+        .btn-close {
+            margin-top: 20px;
+            background: transparent;
+            border: 1px solid #444;
+            padding: 10px 20px;
+            color: #888;
+        }
+
+        /* FIX UNTUK HP */
+        @media (max-width: 768px) {
+            .hero {
+                flex-direction: column-reverse; /* Foto di atas, teks di bawah */
+                text-align: center;
+                padding: 100px 20px 50px;
+            }
+            .hero-img {
+                max-width: 200px; /* Kecilin foto biar gak makan tempat */
+            }
+            .hero-content h1 { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="hearts-container" id="hearts"></div>
+
+    <section class="hero" id="heroMain">
+        <div class="hero-content">
+            <h2>Haii Castiliana Sayang</h2>
+            <h1>You are the <span style="color: var(--accent);">Best Part</span> of my life.</h1>
+            <p>Ada sesuatu yang mau aku sampaikan buat kamu.</p>
+            <button class="btn" onclick="showMessage()">Buka Surat Sayang</button>
+        </div>
+        <div class="hero-img-container">
+            <!-- Ganti link ini sama foto cewek lu -->
+            <img src="https://cdn.discordapp.com/attachments/868819057607053322/1562820599208878131/9513f4bf76c36f61bd9cdf6f85371f05.jpg?ex=6adf561a&is=6ade049a&hm=f4825ad5794d4616d8d4067ef3cbe75b37d186ff2a1579df015d799d00cc9d85&" alt="Castiliana" class="hero-img">
+        </div>
+    </section>
+
+    <div id="messageOverlay">
+        <div class="glass-card">
+            <p>
+                "Nggak ada yang lebih indah dibandingin senyum kamu. Makasih ya udah mencoba cinta sama aku dan mencoba bangun kepercayaan sama aku. Aku mungkin bukan cowok yang sempurna, tapi buat kamu, aku bakal selalu berusaha jadi yang terbaik ya sayang, i'll tryyyy:DD"
+                <br>
+            </p>
+            <div class="signature">Will you be my girlfriend, Castiliana?</div>
+            <button class="btn btn-close" onclick="closeMessage()">Tutup Surat</button>
+        </div>
+    </div>
+
+    <script>
+        function showMessage() {
+            document.getElementById('messageOverlay').classList.add('active');
+            document.getElementById('heroMain').style.filter = 'blur(10px)';
+        }
+
+        function closeMessage() {
+            document.getElementById('messageOverlay').classList.remove('active');
+            document.getElementById('heroMain').style.filter = 'blur(0px)';
+        }
+
+        const heartsContainer = document.getElementById('hearts');
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+            heart.style.fontSize = Math.random() * 15 + 10 + 'px';
+            heartsContainer.appendChild(heart);
+            setTimeout(() => heart.remove(), 5000);
+        }
+        setInterval(createHeart, 400);
+    </script>
+</body>
+</html>
